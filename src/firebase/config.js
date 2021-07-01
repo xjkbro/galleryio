@@ -1,4 +1,5 @@
-import firebase from "firebase/app";
+import firebase from "firebase";
+import firebaseApp from "firebase/app";
 import "firebase/storage";
 import "firebase/firestore";
 
@@ -11,10 +12,15 @@ var firebaseConfig = {
     appId: "1:608565928469:web:45e48427df6a6e4907a41c",
 };
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+// firebase.initializeApp(firebaseConfig);
+const app = !firebase.apps.length
+    ? firebase.initializeApp(firebaseConfig)
+    : firebase.app();
 
-const projectStorage = firebase.storage();
-const projectFirestore = firebase.firestore();
-const timestamp = firebase.firestore.FieldValue.serverTimestamp;
+const projectStorage = app.storage();
+const projectFirestore = app.firestore();
+const timestamp = firebaseApp.firestore.FieldValue.serverTimestamp;
+const auth = app.auth();
+const provider = new firebase.auth.GoogleAuthProvider();
 
-export { projectStorage, projectFirestore, timestamp };
+export { projectStorage, projectFirestore, timestamp, auth, provider };

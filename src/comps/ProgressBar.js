@@ -9,7 +9,7 @@ const ProgressBar = ({ file, setFile, caption, setCaption, setForm }) => {
     useEffect(() => {
         if (url) {
             setFile(null);
-            setCaption(null);
+            setCaption("");
             setForm(null);
         }
     }, [url, setFile]);
@@ -20,7 +20,6 @@ const ProgressBar = ({ file, setFile, caption, setCaption, setForm }) => {
             initial={{ width: 0 }}
             animate={{ width: progress + "%" }}
         ></motion.div>
-        // <div className="progress-bar" style={{ width: progress + "%" }}></div>
     );
 };
 

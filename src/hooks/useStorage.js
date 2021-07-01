@@ -1,14 +1,17 @@
 import { useState, useEffect } from "react";
 import {
+    auth,
     projectStorage,
     projectFirestore,
     timestamp,
 } from "../firebase/config";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const useStorage = (file, caption) => {
     const [progress, setProgress] = useState(0);
     const [error, setError] = useState(null);
     const [url, setUrl] = useState(null);
+    const [user, loading] = useAuthState(auth);
 
     useEffect(() => {
         // references
@@ -27,7 +30,12 @@ const useStorage = (file, caption) => {
             async () => {
                 const url = await storageRef.getDownloadURL();
                 const createdAt = timestamp();
-                collectionRef.add({ url, createdAt, caption });
+                collectionRef.add({
+                    url,
+                    createdAt,
+                    caption,
+                    user: user.email,
+                });
                 setUrl(url);
             }
         );

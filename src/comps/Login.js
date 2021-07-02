@@ -1,12 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "@material-ui/core";
 import styled from "styled-components";
-import { auth, provider } from "../firebase/config";
+import { auth, provider, projectFirestore } from "../firebase/config";
+import { useHistory } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 function Login() {
+    const history = useHistory();
+    const [user, loading] = useAuthState(auth);
     const signIn = () => {
-        auth.signInWithPopup(provider).catch(alert);
+        let app = auth.signInWithPopup(provider).catch(alert);
     };
+    useEffect(() => {
+        if (user) {
+            let path = `/`;
+            history.push(path);
+        }
+    }, [user]);
+
     return (
         <Container>
             <LoginContainer>

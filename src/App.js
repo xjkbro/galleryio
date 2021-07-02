@@ -4,6 +4,7 @@ import UploadForm from "./comps/UploadForm";
 import ImageGrid from "./comps/ImageGrid";
 import Modal from "./comps/Modal";
 import Login from "./comps/Login";
+import SignOut from "./comps/SignOut";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, projectFirestore } from "./firebase/config";
 import firebase from "firebase";
@@ -33,6 +34,9 @@ function App() {
             <Switch>
                 <Route path="/login">
                     <Login />
+                </Route>
+                <Route path="/signout">
+                    <SignOut />
                 </Route>
                 <Route path="/" exact>
                     <Home />
